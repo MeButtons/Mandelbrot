@@ -6,3 +6,13 @@ C:\Users\Mike Knoop\Documents\Visual Studio 2015\Projects\Mandelbrot\Mandelbrot\
 C:\Users\Mike Knoop\Documents\Visual Studio 2015\Projects\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.exe
 C:\Users\Mike Knoop\Documents\Visual Studio 2015\Projects\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.pdb
 C:\Users\Mike Knoop\Documents\Visual Studio 2015\Projects\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.csprojResolveAssemblyReference.cache
+C:\Users\Mike Knoop\Documents\Visual Studio 2015\Projects\Mandelbrot\Mandelbrot\obj\Debug\Mandelbrot.Form1.resources
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\bin\Debug\Mandelbrot.exe.config
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.exe
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.pdb
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\bin\Debug\Mandelbrot.exe
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\bin\Debug\Mandelbrot.pdb
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.csprojResolveAssemblyReference.cache
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.Form1.resources
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.Properties.Resources.resources
+C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.csproj.GenerateResource.Cache
