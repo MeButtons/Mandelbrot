@@ -7,10 +7,76 @@ using System.Drawing;
 
 namespace Mandelbrot
 {
+    class Kleur : Form
+    {
+        public int[] kleurArray;
+        private TextBox r, g, b;
+        private Label rLabel, gLabel, bLabel;
+
+        public Kleur()
+        {
+            kleurArray = new int[3];
+
+            Button klaar;
+            klaar = new Button();
+            klaar.Click += this.klaar_Click;
+
+            this.r = new TextBox();
+            this.r.Location = new Point(50, 10);
+            this.rLabel = new Label();
+            this.rLabel.Location = new Point(30, 10);
+            rLabel.Text = "R";
+
+
+            this.g = new TextBox();
+            this.g.Location = new Point(50, 40);
+            this.gLabel = new Label();
+            this.gLabel.Location = new Point(30, 40);
+            gLabel.Text = "G";
+
+            this.b = new TextBox();
+            this.b.Location = new Point(50, 70);
+            this.bLabel = new Label();
+            this.bLabel.Location = new Point(30, 70);
+            bLabel.Text = "B";
+
+            klaar.Location = new Point(290, 30);
+            klaar.Size = new Size(80, 60);
+            klaar.Text = "Klaar";
+
+            this.Size = new Size(400, 200);
+
+            this.Controls.Add(r);
+            this.Controls.Add(g);
+            this.Controls.Add(b);
+            this.Controls.Add(rLabel);
+            this.Controls.Add(gLabel);
+            this.Controls.Add(bLabel);
+            this.Controls.Add(klaar);
+
+        }
+
+        public void storeRGB()
+        {
+            kleurArray[0] = int.Parse(r.Text);
+            kleurArray[1] = int.Parse(g.Text);
+            kleurArray[2] = int.Parse(b.Text);
+        }
+
+        public void klaar_Click(object Sender, EventArgs e)
+        {
+            storeRGB();
+            this.Close();
+
+        }
+    }
+
+
     class Mandelbrot : Form
     {
         private TextBox invoerx, invoery, invoerschaal;
         private Label labelx, labely, labelschaal;
+        private SolidBrush kleur1, kleur2, kleur3;
 
         double schaal = 0.01;
         double a = 0;
@@ -29,7 +95,7 @@ namespace Mandelbrot
 
         public Mandelbrot()
         {
-            Button knop;
+            Button knop, knopKleur1, knopKleur2, knopKleur3, lucht, water, aarde, vuur;
             PictureBox tekening = new PictureBox();
 
             this.invoerx = new TextBox();
@@ -44,10 +110,45 @@ namespace Mandelbrot
             this.invoerschaal.Location = new Point(325,12);
             invoerschaal.Text = schaal.ToString();
 
+            knopKleur1 = new Button();
+            knopKleur1.Size = new Size(85,50);
+            knopKleur1.Text = "Kleur 1";
+            knopKleur1.Location = new Point(450,50);
+
+            knopKleur2 = new Button();
+            knopKleur2.Size = new Size(85, 50);
+            knopKleur2.Text = "Kleur 2";
+            knopKleur2.Location = new Point(450, 100);
+
+            knopKleur3 = new Button();
+            knopKleur3.Size = new Size(85, 50);
+            knopKleur3.Text = "Kleur 3";
+            knopKleur3.Location = new Point(450, 150);
+
+            vuur = new Button();
+            vuur.Size = new Size(85, 50);
+            vuur.Text = "Vuur";
+            vuur.Location = new Point(450, 200);
+
+            water = new Button();
+            water.Size = new Size(85, 50);
+            water.Text = "Water";
+            water.Location = new Point(450, 250);
+
+            aarde = new Button();
+            aarde.Size = new Size(85, 50);
+            aarde.Text = "Aarde";
+            aarde.Location = new Point(450, 300);
+
+            lucht = new Button();
+            lucht.Size = new Size(85, 50);
+            lucht.Text = "Lucht";
+            lucht.Location = new Point(450, 350);
+
             knop = new Button();
-            knop.Size = new Size(85,50);
+            knop.Size = new Size(85, 50);
             knop.Text = "start";
-            knop.Location = new Point(450,0);
+            knop.Location = new Point(450, 0);
 
             this.labelx = new Label();
             this.labelx.Location = new Point(25,12);
@@ -64,9 +165,16 @@ namespace Mandelbrot
             this.Text = "Mandelbrot";
             this.Size = new Size(550, 550);
             knop.Click += this.start;
-           
+
+            kleur1 = new SolidBrush(Color.FromArgb(255, 0, 0));
+            kleur2 = new SolidBrush(Color.FromArgb(0, 255, 0));
+            kleur3 = new SolidBrush(Color.FromArgb(0, 0, 255));
+
 
             this.Controls.Add(knop);
+            this.Controls.Add(knopKleur1);
+            this.Controls.Add(knopKleur2);
+            this.Controls.Add(knopKleur3);
             this.Controls.Add(invoerx);
             this.Controls.Add(invoery);
             this.Controls.Add(labelx);
@@ -74,16 +182,26 @@ namespace Mandelbrot
             this.Controls.Add(invoerschaal);
             this.Controls.Add(labelschaal);
             this.Controls.Add(tekening);
+            this.Controls.Add(vuur);
+            this.Controls.Add(water);
+            this.Controls.Add(aarde);
+            this.Controls.Add(lucht);
 
             this.MouseClick += this.start_click;
+            knopKleur1.Click += this.knopKleur1_Click;
+            knopKleur2.Click += this.knopKleur2_Click;
+            knopKleur3.Click += this.knopKleur3_Click;
+            vuur.Click += this.vuur_Click;
+            water.Click += this.water_Click;
+            aarde.Click += this.aarde_Click;
+            lucht.Click += this.lucht_Click;
         }
 
         private void start_click(object sender, MouseEventArgs mea)
         {
 
 
-            x = -225;
-            y = -225;
+
             middenx = mea.X;
             middeny = mea.Y;
             middenx = middenx - 225;
@@ -96,13 +214,71 @@ namespace Mandelbrot
             invoerschaal.Text = schaal.ToString();
             Invalidate();
             this.Paint += this.tekenscherm;
-        
 
 
         }
 
+        
+
+        public void knopKleur1_Click(object sender, System.EventArgs e)
+        {
+            Kleur kleurButton = new Kleur();
+            kleurButton.ShowDialog();
+            kleur1 = new SolidBrush(Color.FromArgb(kleurButton.kleurArray[0], kleurButton.kleurArray[1], kleurButton.kleurArray[2]));
+            Invalidate();
+        }
+
+        public void knopKleur2_Click(object sender, System.EventArgs e)
+        {
+            Kleur kleurButton = new Kleur();
+            kleurButton.ShowDialog();
+            kleur2 = new SolidBrush(Color.FromArgb(kleurButton.kleurArray[0], kleurButton.kleurArray[1], kleurButton.kleurArray[2]));
+            Invalidate();
+        }
+
+        public void knopKleur3_Click(object sender, System.EventArgs e)
+        {
+            Kleur kleurButton = new Kleur();
+            kleurButton.ShowDialog();
+            kleur3 = new SolidBrush(Color.FromArgb(kleurButton.kleurArray[0], kleurButton.kleurArray[1], kleurButton.kleurArray[2]));
+            Invalidate();
+        }
+
+        public void vuur_Click(object sender, EventArgs e)
+        {
+            kleur1 = new SolidBrush(Color.FromArgb(255, 0, 0));
+            kleur2 = new SolidBrush(Color.FromArgb(255, 200, 0));
+            kleur3 = new SolidBrush(Color.FromArgb(255, 255, 0));
+            Invalidate();
+        }
+
+        public void water_Click(object sender, EventArgs e)
+        {
+            kleur1 = new SolidBrush(Color.FromArgb(0, 0, 255));
+            kleur2 = new SolidBrush(Color.FromArgb(0, 130, 255));
+            kleur3 = new SolidBrush(Color.FromArgb(0, 0, 100));
+            Invalidate();
+        }
+
+        public void aarde_Click(object sender, EventArgs e)
+        {
+            kleur1 = new SolidBrush(Color.FromArgb(255, 200, 0));
+            kleur2 = new SolidBrush(Color.FromArgb(170, 90, 0));
+            kleur3 = new SolidBrush(Color.FromArgb(80, 40, 0));
+            Invalidate();
+        }
+
+        public void lucht_Click(object sender, EventArgs e)
+        {
+            kleur1 = new SolidBrush(Color.FromArgb(0, 255, 200));
+            kleur2 = new SolidBrush(Color.FromArgb(0, 200, 255));
+            kleur3 = new SolidBrush(Color.FromArgb(255, 255, 255));
+            Invalidate();
+        }
+
         private void start(object sender, System.EventArgs e)
         {
+
             Invalidate();
             this.Paint += this.tekenscherm;
             coordx = -225;
@@ -112,6 +288,7 @@ namespace Mandelbrot
         void tekenscherm(object obj, PaintEventArgs pea)
         {
            schaal = float.Parse(invoerschaal.Text);
+
 
             nieuwx = x + middenx;
             x = nieuwx;
@@ -125,7 +302,7 @@ namespace Mandelbrot
         
         void tekenmandelbrot(Graphics gr, float x, float y)
         {
-            while (coordx <= 550)
+            while (x <= 550)
             {
                 while (afstand <= 2)                                    // 2 keer while -> kijken of dit netter/beter kan
                 {
@@ -139,7 +316,7 @@ namespace Mandelbrot
                     }
                     if (teller >= 100)
                     {
-                        gr.FillRectangle(Brushes.Red, coordx + 225, coordy + 275, 1, 1);
+                        gr.FillRectangle(kleur1, coordx + 225, coordy + 275, 1, 1);
                         x = x + 1;
                         coordx = coordx + 1;
                         teller = 0;
@@ -155,7 +332,7 @@ namespace Mandelbrot
                 resultaat = teller % 2;                 // kijken of getal oneven is
                 if (resultaat == 1)
                 {
-                    gr.FillRectangle(Brushes.Blue, coordx + 225, coordy + 275, 1, 1);
+                    gr.FillRectangle(kleur2, coordx + 225, coordy + 275, 1, 1);
                     x = x + 1;
                     coordx = coordx + 1;
                     teller = 0;
@@ -165,7 +342,7 @@ namespace Mandelbrot
                 }
                 else
                 {
-                    gr.FillRectangle(Brushes.Yellow, coordx + 225, coordy + 275, 1, 1);
+                    gr.FillRectangle(kleur3, coordx + 225, coordy + 275, 1, 1);
                     x = x + 1;
                     coordx = coordx + 1;
                     teller = 0;
