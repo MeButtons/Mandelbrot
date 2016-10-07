@@ -74,8 +74,8 @@ namespace Mandelbrot
 
     class Mandelbrot : Form
     {
-        private TextBox invoerx, invoery, invoerschaal;
-        private Label labelx, labely, labelschaal;
+        private TextBox invoerx, invoery, invoerschaal, invoermax;
+        private Label labelx, labely, labelschaal, labelmax;
         private SolidBrush kleur1, kleur2, kleur3;
 
         double schaal = 0.01;
@@ -89,6 +89,7 @@ namespace Mandelbrot
         float coordy = -225;
         float middenx, middeny, nieuwx, nieuwy;
         int teller = 0;
+        int max = 100;
         double resultaat;
         double sqrtR;
         double afstand = 0;
@@ -109,6 +110,10 @@ namespace Mandelbrot
             this.invoerschaal = new TextBox();
             this.invoerschaal.Location = new Point(325,12);
             invoerschaal.Text = schaal.ToString();
+
+            this.invoermax = new TextBox();
+            this.invoermax.Location = new Point(450, 450);
+            invoermax.Text = max.ToString();
 
             knopKleur1 = new Button();
             knopKleur1.Size = new Size(85,50);
@@ -162,6 +167,10 @@ namespace Mandelbrot
             this.labelschaal.Location = new Point(275, 12);
             labelschaal.Text = "Schaal:";
 
+            this.labelmax = new Label();
+            this.labelmax.Location = new Point(450, 425);
+            labelmax.Text = "Max:";
+
             this.Text = "Mandelbrot";
             this.Size = new Size(550, 550);
             knop.Click += this.start;
@@ -172,16 +181,23 @@ namespace Mandelbrot
 
 
             this.Controls.Add(knop);
+
             this.Controls.Add(knopKleur1);
             this.Controls.Add(knopKleur2);
             this.Controls.Add(knopKleur3);
+
             this.Controls.Add(invoerx);
             this.Controls.Add(invoery);
+            this.Controls.Add(invoerschaal);
+            this.Controls.Add(invoermax);
+
             this.Controls.Add(labelx);
             this.Controls.Add(labely);
-            this.Controls.Add(invoerschaal);
             this.Controls.Add(labelschaal);
+            this.Controls.Add(labelmax);
+
             this.Controls.Add(tekening);
+
             this.Controls.Add(vuur);
             this.Controls.Add(water);
             this.Controls.Add(aarde);
@@ -302,11 +318,12 @@ namespace Mandelbrot
         
         void tekenmandelbrot(Graphics gr, float x, float y)
         {
+            max = Int32.Parse(invoermax.Text);
             while (x <= 550)
             {
                 while (afstand <= 2)                                    // 2 keer while -> kijken of dit netter/beter kan
                 {
-                    if (teller < 100)                                   // moet if zijn anders loop met altijd het antwoord 3 -> zwart vlak
+                    if (teller < max)                                   // moet if zijn anders loop met altijd het antwoord 3 -> zwart vlak
                     {
                         a2 = (a * a - b * b + (x * schaal));            // nieuwe a berekenen en in tijdelijke a zetten
                         b2 = (2 * a * b + (y * schaal));                // nieuwe b berekenen en in tijdelijke a zetten
@@ -314,7 +331,7 @@ namespace Mandelbrot
                         sqrtR = (a * a) + (b * b);                      // stelling pythagoras a^2 + b^2 = c^2 
                         afstand = Math.Sqrt(sqrtR);                     // stelling pythagoras
                     }
-                    if (teller >= 100)
+                    if (teller >= max)
                     {
                         gr.FillRectangle(kleur1, coordx + 225, coordy + 275, 1, 1);
                         x = x + 1;
