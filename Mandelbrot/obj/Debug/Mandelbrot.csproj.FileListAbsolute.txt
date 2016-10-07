@@ -16,12 +16,3 @@ C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbro
 C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.Form1.resources
 C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.Properties.Resources.resources
 C:\Users\Shewpdanewb\Desktop\Mandelbrot-fucked-up\Mandelbrot\obj\Debug\Mandelbrot.csproj.GenerateResource.Cache
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\bin\Debug\Mandelbrot.exe.config
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\obj\Debug\Mandelbrot.exe
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\obj\Debug\Mandelbrot.pdb
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\bin\Debug\Mandelbrot.exe
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\bin\Debug\Mandelbrot.pdb
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\obj\Debug\Mandelbrot.csprojResolveAssemblyReference.cache
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\obj\Debug\Mandelbrot.Form1.resources
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\obj\Debug\Mandelbrot.Properties.Resources.resources
-C:\Users\Mike Knoop\Downloads\Mandelbrot-Kleur\Mandelbrot-Kleur\Mandelbrot\obj\Debug\Mandelbrot.csproj.GenerateResource.Cache

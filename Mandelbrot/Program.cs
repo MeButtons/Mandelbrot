@@ -7,45 +7,48 @@ using System.Drawing;
 
 namespace Mandelbrot
 {
-    class Kleur : Form
+    class Kleur : Form //Class om kleuren van fractal aan te passen
     {
-        public int[] kleurArray;
-        private TextBox r, g, b;
-        private Label rLabel, gLabel, bLabel;
+        public int[] kleurArray; //RGB waardes
+        private TextBox r, g, b; //voor parsing van textbox naar array
+        private Label rLabel, gLabel, bLabel; //Labeling van invoervelden
 
-        public Kleur()
+        public Kleur() //constructor
         {
             kleurArray = new int[3];
 
+            //Button om afsluitfunctie aan te roepen
             Button klaar;
             klaar = new Button();
-            klaar.Click += this.klaar_Click;
+            klaar.Location = new Point(290, 30);
+            klaar.Size = new Size(80, 60);
+            klaar.Text = "Klaar";
 
+            //textbox om Red waarde te veranderen
             this.r = new TextBox();
             this.r.Location = new Point(50, 10);
             this.rLabel = new Label();
             this.rLabel.Location = new Point(30, 10);
             rLabel.Text = "R";
 
-
+            //textbox om Green waarde te veranderen
             this.g = new TextBox();
             this.g.Location = new Point(50, 40);
             this.gLabel = new Label();
             this.gLabel.Location = new Point(30, 40);
             gLabel.Text = "G";
 
+            //textbox om Blue waarde te veranderen
             this.b = new TextBox();
             this.b.Location = new Point(50, 70);
             this.bLabel = new Label();
             this.bLabel.Location = new Point(30, 70);
             bLabel.Text = "B";
 
-            klaar.Location = new Point(290, 30);
-            klaar.Size = new Size(80, 60);
-            klaar.Text = "Klaar";
-
+            //grootte van KleurForm
             this.Size = new Size(400, 200);
 
+            //alles zichtbaar maken
             this.Controls.Add(r);
             this.Controls.Add(g);
             this.Controls.Add(b);
@@ -54,16 +57,19 @@ namespace Mandelbrot
             this.Controls.Add(bLabel);
             this.Controls.Add(klaar);
 
+            //klaar eventhandler
+            klaar.Click += this.klaar_Click;
+
         }
 
-        public void storeRGB()
+        public void storeRGB() //parsed de rgb invoer naar het array
         {
             kleurArray[0] = int.Parse(r.Text);
             kleurArray[1] = int.Parse(g.Text);
             kleurArray[2] = int.Parse(b.Text);
         }
 
-        public void klaar_Click(object Sender, EventArgs e)
+        public void klaar_Click(object Sender, EventArgs e) //klaar button eventhandler
         {
             storeRGB();
             this.Close();
@@ -74,9 +80,9 @@ namespace Mandelbrot
 
     class Mandelbrot : Form
     {
-        private TextBox invoerx, invoery, invoerschaal, invoermax;
-        private Label labelx, labely, labelschaal, labelmax;
-        private SolidBrush kleur1, kleur2, kleur3;
+        private TextBox invoerx, invoery, invoerschaal;
+        private Label labelx, labely, labelschaal;
+        private SolidBrush kleur1, kleur2, kleur3; //3 kleuren voor de mandelbrotfiguur
 
         double schaal = 0.01;
         double a = 0;
@@ -85,11 +91,8 @@ namespace Mandelbrot
         double b2;
         float x = -225;
         float y = -225;
-        float coordx = -225;
-        float coordy = -225;
-        float middenx, middeny, nieuwx, nieuwy;
+        float middenx, middeny;
         int teller = 0;
-        int max = 100;
         double resultaat;
         double sqrtR;
         double afstand = 0;
@@ -111,40 +114,43 @@ namespace Mandelbrot
             this.invoerschaal.Location = new Point(325,12);
             invoerschaal.Text = schaal.ToString();
 
-            this.invoermax = new TextBox();
-            this.invoermax.Location = new Point(450, 450);
-            invoermax.Text = max.ToString();
-
+            //knop om de eerste kleur aan te passen
             knopKleur1 = new Button();
             knopKleur1.Size = new Size(85,50);
             knopKleur1.Text = "Kleur 1";
             knopKleur1.Location = new Point(450,50);
 
+            //knop om de tweede kleur aan te passen
             knopKleur2 = new Button();
             knopKleur2.Size = new Size(85, 50);
             knopKleur2.Text = "Kleur 2";
             knopKleur2.Location = new Point(450, 100);
 
+            //knop om de derde kleur aan te passen
             knopKleur3 = new Button();
             knopKleur3.Size = new Size(85, 50);
             knopKleur3.Text = "Kleur 3";
             knopKleur3.Location = new Point(450, 150);
 
+            //knop om de 'vuur'kleuren preset te laden
             vuur = new Button();
             vuur.Size = new Size(85, 50);
             vuur.Text = "Vuur";
             vuur.Location = new Point(450, 200);
 
+            //knop om de 'water'kleuren preset te laden
             water = new Button();
             water.Size = new Size(85, 50);
             water.Text = "Water";
             water.Location = new Point(450, 250);
 
+            //knop om de 'aarde'kleuren preset te laden
             aarde = new Button();
             aarde.Size = new Size(85, 50);
             aarde.Text = "Aarde";
             aarde.Location = new Point(450, 300);
 
+            //knop om de 'lucht'kleuren preset te laden
             lucht = new Button();
             lucht.Size = new Size(85, 50);
             lucht.Text = "Lucht";
@@ -167,42 +173,34 @@ namespace Mandelbrot
             this.labelschaal.Location = new Point(275, 12);
             labelschaal.Text = "Schaal:";
 
-            this.labelmax = new Label();
-            this.labelmax.Location = new Point(450, 425);
-            labelmax.Text = "Max:";
-
             this.Text = "Mandelbrot";
             this.Size = new Size(550, 550);
             knop.Click += this.start;
 
+
+            //standaard instellingen voor mandelbrotkleuren
             kleur1 = new SolidBrush(Color.FromArgb(255, 0, 0));
             kleur2 = new SolidBrush(Color.FromArgb(0, 255, 0));
             kleur3 = new SolidBrush(Color.FromArgb(0, 0, 255));
 
-
+            //alles zichtbaar maken
             this.Controls.Add(knop);
-
             this.Controls.Add(knopKleur1);
             this.Controls.Add(knopKleur2);
             this.Controls.Add(knopKleur3);
-
             this.Controls.Add(invoerx);
             this.Controls.Add(invoery);
-            this.Controls.Add(invoerschaal);
-            this.Controls.Add(invoermax);
-
             this.Controls.Add(labelx);
             this.Controls.Add(labely);
+            this.Controls.Add(invoerschaal);
             this.Controls.Add(labelschaal);
-            this.Controls.Add(labelmax);
-
             this.Controls.Add(tekening);
-
             this.Controls.Add(vuur);
             this.Controls.Add(water);
             this.Controls.Add(aarde);
             this.Controls.Add(lucht);
 
+            //alle eventhandlers goedzetten
             this.MouseClick += this.start_click;
             knopKleur1.Click += this.knopKleur1_Click;
             knopKleur2.Click += this.knopKleur2_Click;
@@ -215,28 +213,21 @@ namespace Mandelbrot
 
         private void start_click(object sender, MouseEventArgs mea)
         {
-
-
-
+           
+           
+            
             middenx = mea.X;
             middeny = mea.Y;
-            middenx = middenx - 225;
-            middeny = middeny - 275;
-            coordx = -225;
-            coordy = -225;
             invoerx.Text = middenx.ToString();
             invoery.Text = middeny.ToString();
-            schaal = schaal * 0.8;
-            invoerschaal.Text = schaal.ToString();
-            Invalidate();
+            
             this.Paint += this.tekenscherm;
+            Invalidate();
 
 
         }
 
-        
-
-        public void knopKleur1_Click(object sender, System.EventArgs e)
+        public void knopKleur1_Click(object sender, System.EventArgs e) //Kleur1 knop eventhandler
         {
             Kleur kleurButton = new Kleur();
             kleurButton.ShowDialog();
@@ -244,7 +235,7 @@ namespace Mandelbrot
             Invalidate();
         }
 
-        public void knopKleur2_Click(object sender, System.EventArgs e)
+        public void knopKleur2_Click(object sender, System.EventArgs e) //kleur2 knop eventhandler
         {
             Kleur kleurButton = new Kleur();
             kleurButton.ShowDialog();
@@ -252,7 +243,7 @@ namespace Mandelbrot
             Invalidate();
         }
 
-        public void knopKleur3_Click(object sender, System.EventArgs e)
+        public void knopKleur3_Click(object sender, System.EventArgs e) //kleur 3 knop eventhandler
         {
             Kleur kleurButton = new Kleur();
             kleurButton.ShowDialog();
@@ -260,6 +251,7 @@ namespace Mandelbrot
             Invalidate();
         }
 
+        //Eventhandlers voor de preset knoppen
         public void vuur_Click(object sender, EventArgs e)
         {
             kleur1 = new SolidBrush(Color.FromArgb(255, 0, 0));
@@ -291,25 +283,21 @@ namespace Mandelbrot
             kleur3 = new SolidBrush(Color.FromArgb(255, 255, 255));
             Invalidate();
         }
+        //Eventhandlers voor de preset knoppen stoppen hier
 
         private void start(object sender, System.EventArgs e)
         {
-
-            Invalidate();
+            
             this.Paint += this.tekenscherm;
-            coordx = -225;
-            coordy = -225;
+            Invalidate();
         }
 
         void tekenscherm(object obj, PaintEventArgs pea)
         {
            schaal = float.Parse(invoerschaal.Text);
 
-
-            nieuwx = x + middenx;
-            x = nieuwx;
-            nieuwy = y + middeny;
-            y = nieuwy;
+            x = middenx + x;
+            y = middeny + y;
 
             this.tekenmandelbrot(pea.Graphics, x, y);
                        
@@ -318,12 +306,11 @@ namespace Mandelbrot
         
         void tekenmandelbrot(Graphics gr, float x, float y)
         {
-            max = Int32.Parse(invoermax.Text);
             while (x <= 550)
             {
                 while (afstand <= 2)                                    // 2 keer while -> kijken of dit netter/beter kan
                 {
-                    if (teller < max)                                   // moet if zijn anders loop met altijd het antwoord 3 -> zwart vlak
+                    if (teller < 100)                                   // moet if zijn anders loop met altijd het antwoord 3 -> zwart vlak
                     {
                         a2 = (a * a - b * b + (x * schaal));            // nieuwe a berekenen en in tijdelijke a zetten
                         b2 = (2 * a * b + (y * schaal));                // nieuwe b berekenen en in tijdelijke a zetten
@@ -331,11 +318,10 @@ namespace Mandelbrot
                         sqrtR = (a * a) + (b * b);                      // stelling pythagoras a^2 + b^2 = c^2 
                         afstand = Math.Sqrt(sqrtR);                     // stelling pythagoras
                     }
-                    if (teller >= max)
+                    if (teller >= 100)
                     {
-                        gr.FillRectangle(kleur1, coordx + 225, coordy + 275, 1, 1);
+                        gr.FillRectangle(kleur1, x + 225, y + 275, 1, 1);
                         x = x + 1;
-                        coordx = coordx + 1;
                         teller = 0;
                         afstand = 0;
                         a = 0;
@@ -349,9 +335,8 @@ namespace Mandelbrot
                 resultaat = teller % 2;                 // kijken of getal oneven is
                 if (resultaat == 1)
                 {
-                    gr.FillRectangle(kleur2, coordx + 225, coordy + 275, 1, 1);
+                    gr.FillRectangle(kleur2, x + 225, y + 275, 1, 1);
                     x = x + 1;
-                    coordx = coordx + 1;
                     teller = 0;
                     afstand = 0;
                     a = 0;
@@ -359,22 +344,19 @@ namespace Mandelbrot
                 }
                 else
                 {
-                    gr.FillRectangle(kleur3, coordx + 225, coordy + 275, 1, 1);
+                    gr.FillRectangle(kleur3, x + 225, y + 275, 1, 1);
                     x = x + 1;
-                    coordx = coordx + 1;
                     teller = 0;
                     afstand = 0;
                     a = 0;
                     b = 0;
                 }
-                if (coordx >= 225 && coordy < 225)
+                if (x >= 225 && y < 225)
                 {
-                    x = nieuwx;
-                    coordx = -225;
-                    coordy = coordy + 1;
+                    x = -225;
                     y = y + 1;
                 }
-                if (coordy >= 225)
+                if (y >= 225)
                 {
                     break;
                 }
